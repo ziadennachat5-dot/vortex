@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ziad Ennachat — V0RTEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050608; --panel:#0b0e14; --panel-2:#10141d; --line:#1c212c;
+    --text:#f2f4f8; --text-dim:#8a93a3; --text-dimmer:#4d5462;
+    --blue:#3568ff; --blue-2:#7fa2ff; --blue-glow:rgba(53,104,255,.5);
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--blue); color:#000; }
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+  .wrap{ max-width:1140px; margin:0 auto; padding:0 32px; }
+  img{ max-width:100%; }
+
+  .field{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(53,104,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(53,104,255,0.06) 1px, transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(ellipse 65% 40% at 50% 0%, #000 40%, transparent 78%);
+    mask-image:radial-gradient(ellipse 65% 40% at 50% 0%, #000 40%, transparent 78%);
+  }
+
+  /* ---------- nav ---------- */
+  header{ position:sticky; top:0; z-index:30; background:rgba(5,6,8,.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top); }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; padding:16px 32px; gap:12px; }
+  .logo{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:15px; white-space:nowrap; }
+  .logo span{ color:var(--blue); }
+  .navlinks{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-dim); }
+  .navlinks a{ text-decoration:none; transition:color .15s ease; white-space:nowrap; padding:10px 6px; margin:-10px -6px; }
+  .navlinks a:hover{ color:var(--text); }
+  .navlinks .cta{ border:1px solid var(--blue); color:var(--blue); padding:10px 15px; margin:0; font-family:'JetBrains Mono',monospace; font-size:11.5px; transition:background .15s ease,color .15s ease; }
+  .navlinks .cta:hover, .navlinks .cta:active{ background:var(--blue); color:#000; }
+  .navlinks .hide-sm{ display:inline; }
+
+  main{ position:relative; z-index:1; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:96px 0 70px; border-bottom:1px solid var(--line); }
+  .eyebrow{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--blue-2); display:flex; align-items:center; gap:9px; margin:0 0 26px; opacity:0; animation:rise .6s ease forwards; }
+  .eyebrow .pulse{ width:7px; height:7px; border-radius:50%; background:var(--blue); box-shadow:0 0 12px 2px var(--blue-glow); flex:none; }
+
+  .glitchwrap{ position:relative; margin:0 0 20px; opacity:0; animation:rise .7s ease .08s forwards; }
+  h1.name{
+    font-family:'Unbounded',sans-serif; font-weight:900; text-transform:uppercase;
+    font-size:clamp(38px,11vw,100px); line-height:.94; letter-spacing:-.01em; margin:0;
+  }
+  h1.name .line2{ color:var(--blue); }
+  .glitchwrap::before, .glitchwrap::after{
+    content:'ZIAD ENNACHAT'; position:absolute; inset:0;
+    font-family:'Unbounded',sans-serif; font-weight:900; text-transform:uppercase;
+    font-size:clamp(38px,11vw,100px); line-height:.94; letter-spacing:-.01em;
+    opacity:0; pointer-events:none;
+  }
+  .glitchwrap::before{ color:#ff2fd0; mix-blend-mode:screen; animation:glitchA 5.4s ease-in-out .6s infinite; }
+  .glitchwrap::after{ color:#2fe6ff; mix-blend-mode:screen; animation:glitchB 5.4s ease-in-out .6s infinite; }
+  @keyframes glitchA{ 0%,93%,100%{opacity:0;transform:translate(0,0);} 94%{opacity:.7;transform:translate(-3px,1px);} 95%{opacity:.5;transform:translate(2px,-1px);} 96%{opacity:0;} }
+  @keyframes glitchB{ 0%,93%,100%{opacity:0;transform:translate(0,0);} 94.3%{opacity:.7;transform:translate(3px,-1px);} 95.3%{opacity:.5;transform:translate(-2px,1px);} 96.3%{opacity:0;} }
+  @keyframes rise{ from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+
+  .role{ font-size:clamp(15.5px,4vw,19px); color:var(--text-dim); max-width:52ch; margin:0 0 38px; opacity:0; animation:rise .7s ease .18s forwards; }
+  .role strong{ color:var(--text); font-weight:500; }
+
+  .stat-row{ display:flex; gap:36px; flex-wrap:wrap; opacity:0; animation:rise .7s ease .28s forwards; }
+  .stat b{ display:block; font-family:'Unbounded',sans-serif; font-weight:700; font-size:24px; }
+  .stat span{ display:block; font-size:10.5px; color:var(--text-dimmer); margin-top:4px; font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- generic section shell ---------- */
+  section{ padding:64px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:36px; gap:16px; flex-wrap:wrap; }
+  .section-head h2{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,5vw,28px); margin:0; text-transform:uppercase; letter-spacing:-.01em; }
+  .section-head p{ color:var(--text-dim); font-size:13.5px; max-width:34ch; margin:0; }
+  .idx{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dimmer); }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:44px; }
+  .about-grid p{ font-size:15.5px; color:var(--text-dim); max-width:56ch; margin:0 0 16px; }
+  .about-grid p strong{ color:var(--text); font-weight:500; }
+  .about-grid a.inline{ color:var(--blue-2); text-decoration:underline; text-underline-offset:2px; }
+  .focus-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--line); }
+  .focus-list li{ display:flex; align-items:center; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--line); font-size:13.5px; gap:10px; }
+  .focus-list li span:last-child{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue-2); white-space:nowrap; }
+
+  /* ---------- bento (own projects) ---------- */
+  .bento{ display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:180px; gap:12px; }
+  .card{
+    position:relative; background:var(--panel); border:1px solid var(--line);
+    padding:22px; display:flex; flex-direction:column; justify-content:space-between;
+    text-decoration:none; color:var(--text); overflow:hidden;
+    transition:border-color .18s ease, transform .18s ease, background .18s ease;
+  }
+  .card::before{
+    content:''; position:absolute; inset:0; opacity:0;
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%), rgba(53,104,255,.16), transparent 60%);
+    transition:opacity .2s ease; pointer-events:none;
+  }
+  .card:hover{ border-color:var(--blue); transform:translateY(-2px); background:var(--panel-2); }
+  .card:hover::before{ opacity:1; }
+  .card:hover .card-link{ color:var(--blue-2); }
+  .card.c-lg{ grid-column:span 4; grid-row:span 2; }
+  .card.c-md{ grid-column:span 2; grid-row:span 2; }
+  .card.c-sm{ grid-column:span 2; grid-row:span 1; }
+  .card.c-wide{ grid-column:span 3; grid-row:span 1; }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; position:relative; z-index:1; }
+  .glyph{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:18px; color:var(--blue); }
+  .card h3{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:18px; margin:12px 0 7px; position:relative; z-index:1; text-transform:uppercase; }
+  .c-lg h3{ font-size:23px; }
+  .card p{ font-size:13px; color:var(--text-dim); margin:0; max-width:42ch; position:relative; z-index:1; }
+  .tags{ display:flex; gap:7px; flex-wrap:wrap; margin-top:12px; position:relative; z-index:1; }
+  .tag{ font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--text-dimmer); border:1px solid var(--line); padding:3px 6px; }
+  .card-link{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dimmer); transition:color .15s ease; position:relative; z-index:1; white-space:nowrap; }
+
+  /* ---------- ticker ---------- */
+  .ticker-section{ padding:0; border-bottom:1px solid var(--line); }
+  .ticker-row{ overflow:hidden; padding:15px 0; background:var(--panel); width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; }
+  .ticker{ display:flex; white-space:nowrap; width:max-content; animation:scroll 32s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .ticker{ animation:none; } }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .ticker span{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--text-dimmer); padding:0 18px; border-right:1px solid var(--line); }
+  .ticker span b{ color:var(--text-dim); font-weight:500; }
+
+  /* ---------- client work filters + grid ---------- */
+  .filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:30px; }
+  .filter-btn{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-dim);
+    background:transparent; border:1px solid var(--line); padding:8px 14px; cursor:pointer;
+    transition:border-color .15s ease, color .15s ease, background .15s ease; white-space:nowrap;
+  }
+  .filter-btn:hover{ color:var(--text); border-color:#333c4d; }
+  .filter-btn.active{ color:#000; background:var(--blue); border-color:var(--blue); }
+
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .proj{
+    position:relative; background:var(--panel); border:1px solid var(--line);
+    padding:22px; min-height:210px; display:flex; flex-direction:column; justify-content:space-between;
+    text-decoration:none; color:var(--text); overflow:hidden;
+    transition:border-color .18s ease, transform .18s ease, background .18s ease;
+  }
+  .proj::before{
+    content:''; position:absolute; inset:0; opacity:0;
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%), rgba(53,104,255,.16), transparent 60%);
+    transition:opacity .2s ease; pointer-events:none;
+  }
+  .proj:hover{ border-color:var(--blue); transform:translateY(-3px); background:var(--panel-2); }
+  .proj:hover::before{ opacity:1; }
+  .proj:hover .visit{ color:var(--blue-2); }
+  .proj.hidden{ display:none; }
+  .proj-top{ display:flex; align-items:flex-start; justify-content:space-between; position:relative; z-index:1; gap:8px; }
+  .cat-tag{ font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--blue-2); border:1px solid #1f2940; padding:3px 7px; white-space:nowrap; }
+  .num{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dimmer); }
+  .proj h3{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:18px; text-transform:uppercase; margin:18px 0 7px; position:relative; z-index:1; line-height:1.15; }
+  .proj p{ font-size:12.8px; color:var(--text-dim); margin:0; position:relative; z-index:1; max-width:40ch; }
+  .visit{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dimmer); margin-top:14px; position:relative; z-index:1; transition:color .15s ease; word-break:break-word; }
+
+  /* ---------- contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .cbox{
+    background:var(--panel); border:1px solid var(--line); padding:20px 22px;
+    text-decoration:none; color:var(--text); display:flex; align-items:center; justify-content:space-between;
+    transition:border-color .18s ease, background .18s ease; gap:10px;
+  }
+  .cbox:hover{ border-color:var(--blue); background:var(--panel-2); }
+  .cbox:hover .arrow{ color:var(--blue-2); transform:translate(2px,-2px); }
+  .cbox-label{ font-size:10.5px; color:var(--text-dimmer); font-family:'JetBrains Mono',monospace; margin-bottom:6px; }
+  .cbox-value{ font-size:14px; word-break:break-word; }
+  .arrow{ font-size:15px; color:var(--text-dimmer); transition:transform .15s ease, color .15s ease; flex:none; }
+
+  /* ---------- footer ---------- */
+  footer{ padding:26px 0 calc(44px + env(safe-area-inset-bottom)); display:flex; align-items:center; justify-content:space-between; font-size:11.5px; color:var(--text-dimmer); flex-wrap:wrap; gap:10px; }
+  footer .status{ display:flex; align-items:center; gap:8px; }
+  .fdot{ width:6px; height:6px; border-radius:50%; background:var(--blue); box-shadow:0 0 10px 1px var(--blue-glow); flex:none; }
+
+  /* ---------- touch feedback (no hover on touch devices) ---------- */
+  @media (hover:none){
+    .card:active, .proj:active{ border-color:var(--blue); background:var(--panel-2); }
+    .cbox:active{ border-color:var(--blue); background:var(--panel-2); }
+    .cbox:active .arrow{ color:var(--blue-2); }
+    .filter-btn:active{ border-color:var(--blue); }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:780px){
+    .wrap{ padding:0 20px; }
+    nav.wrap{ padding:12px 20px; }
+    .navlinks{ gap:6px; }
+    .navlinks .hide-sm{ display:none; }
+    .hero{ padding:44px 0 40px; }
+    .eyebrow{ font-size:11px; margin-bottom:20px; }
+    .role{ margin-bottom:32px; }
+    .about-grid{ grid-template-columns:1fr; gap:26px; }
+    .focus-list li{ padding:14px 0; }
+    .bento{ grid-template-columns:1fr; grid-auto-rows:auto; gap:10px; }
+    .card.c-lg,.card.c-md,.card.c-sm,.card.c-wide{ grid-column:1; grid-row:auto; min-height:0; padding:20px; }
+    .grid{ grid-template-columns:1fr; gap:10px; }
+    .proj{ min-height:0; padding:20px; }
+    .contact-grid{ grid-template-columns:1fr; gap:10px; }
+    section{ padding:40px 0; }
+    .section-head{ margin-bottom:26px; }
+    .stat-row{ gap:22px; row-gap:14px; }
+
+    /* filters become a swipeable chip row instead of wrapping */
+    .filters{
+      flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch;
+      scrollbar-width:none; margin:0 -20px 26px; padding:0 20px 4px;
+    }
+    .filters::-webkit-scrollbar{ display:none; }
+    .filter-btn{ flex:none; padding:11px 16px; font-size:12px; }
+
+    /* ticker: slower + smaller so words don't blur past on small screens */
+    .ticker{ animation-duration:44s; }
+    .ticker span{ font-size:12px; padding:0 14px; }
+
+    footer{ flex-direction:column; align-items:flex-start; gap:12px; }
+  }
+  @media (max-width:420px){
+    .logo{ font-size:13.5px; }
+    .navlinks{ font-size:11.5px; }
+    .navlinks .cta{ padding:9px 12px; font-size:10.5px; }
+    h1.name{ font-size:clamp(34px,13vw,60px); }
+    .glitchwrap::before, .glitchwrap::after{ font-size:clamp(34px,13vw,60px); }
+    .stat b{ font-size:21px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="field"></div>
+
+<header>
+  <nav class="wrap">
+    <span class="logo">V0RTEX<span>.</span></span>
+    <div class="navlinks">
+      <a href="#about" class="hide-sm">About</a>
+      <a href="#work" class="hide-sm">Work</a>
+      <a href="#clients">Clients</a>
+      <a class="cta" href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" style="border-bottom:1px solid var(--line);">
+    <p class="eyebrow"><span class="pulse"></span>FRONTEND DEVELOPER / PROMPT ENGINEER — MOROCCO</p>
+    <div class="glitchwrap">
+      <h1 class="name">ZIAD<br><span class="line2">ENNACHAT</span></h1>
+    </div>
+    <p class="role">I design and build <strong>high-end web experiences</strong> — Bento-grid interfaces, product sites, and AI-driven tools — under the name <strong>V0RTEX</strong>.</p>
+    <div class="stat-row">
+      <div class="stat"><b>100+</b><span>SITES BUILT</span></div>
+      <div class="stat"><b>MA</b><span>BASED IN MOROCCO</span></div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="idx">01</span>
+    </div>
+    <div class="about-grid">
+      <p>
+        I'm a self‑taught developer who builds real products instead of tutorials. My work sits at the
+        intersection of <strong>design and engineering</strong> — sharp, considered interfaces on the front end,
+        and <strong>prompt engineering</strong> on the back end to make AI features actually feel useful.
+      </p>
+      <p>
+        Under <strong>V0RTEX</strong> I also design and ship websites for other people — artists, dealerships,
+        restaurants and businesses across Morocco. <a class="inline" href="#clients">See that work ↓</a>
+      </p>
+      <ul class="focus-list">
+        <li><span>Frontend development</span><span>UI / UX</span></li>
+        <li><span>Bento‑grid layout systems</span><span>DESIGN</span></li>
+        <li><span>Prompt engineering</span><span>AI</span></li>
+        <li><span>NFC & digital identity products</span><span>PRODUCT</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== OWN WORK (BENTO) ===== -->
+  <section id="work">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <span class="idx">02</span>
+    </div>
+    <div class="bento">
+
+      <a class="card c-lg" href="https://onyx-vy3v.vercel.app" target="_blank" rel="noopener">
+        <div class="card-top"><span class="glyph">◈</span><span class="card-link">Visit site ↗</span></div>
+        <div>
+          <h3>Onyx NFC</h3>
+          <p>Premium NFC business card for professionals and influencers — one tap shares a full digital identity.</p>
+          <div class="tags"><span class="tag">NFC</span><span class="tag">E‑COMMERCE</span><span class="tag">BRAND</span></div>
+        </div>
+      </a>
+
+      <a class="card c-md" href="https://aura-gaming-nexus.vercel.app" target="_blank" rel="noopener">
+        <div class="card-top"><span class="glyph">◉</span><span class="card-link">Visit site ↗</span></div>
+        <div>
+          <h3>Aura Gaming</h3>
+          <p>A gaming nexus platform for the community — news, drops, and the wider gaming universe in one hub.</p>
+          <div class="tags"><span class="tag">GAMING</span><span class="tag">COMMUNITY</span></div>
+        </div>
+      </a>
+
+      <div class="card c-sm">
+        <div class="card-top"><span class="glyph">⬡</span></div>
+        <div>
+          <h3>Syndici</h3>
+          <p>Syndication management app that simplifies building management and resident coordination.</p>
+        </div>
+      </div>
+
+      <div class="card c-sm">
+        <div class="card-top"><span class="glyph">◫</span></div>
+        <div>
+          <h3>Ecom</h3>
+          <p>Full‑stack e‑commerce build — clean UI, product management, and a seamless checkout flow.</p>
+        </div>
+      </div>
+
+      <a class="card c-wide" href="#clients">
+        <div class="card-top"><span class="glyph">✦</span><span class="card-link">See all ↓</span></div>
+        <div>
+          <h3>Client work — V0RTEX</h3>
+          <p>15 live websites built for artists, dealerships, restaurants and brands across Morocco.</p>
+        </div>
+      </a>
+
+      <div class="card c-wide">
+        <div class="card-top"><span class="glyph">✧</span></div>
+        <div>
+          <h3>AI Prompting</h3>
+          <p>Engineering prompts and workflows to get the most reliable, useful output out of language models.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== TICKER ===== -->
+  <section class="ticker-section">
+    <div class="ticker-row">
+      <div class="ticker" aria-hidden="true">
+        <span><b>7ari</b> — Music</span><span><b>Niigu</b> — Creative</span><span><b>Dizzy Dros</b> — Music</span><span><b>ElGrandeToto</b> — Music</span><span><b>RWINA Auto</b> — Automotive</span><span><b>Karzazi Car</b> — Automotive</span><span><b>House of Laraki</b> — Automotive</span><span><b>Jardin Ben Youssef</b> — Hospitality</span><span><b>NM Signature</b> — Lifestyle</span><span><b>Ecom OS</b> — Platform</span><span><b>Urbex B</b> — Platform</span><span><b>Onyx NFC</b> — Platform</span>
+        <span><b>7ari</b> — Music</span><span><b>Niigu</b> — Creative</span><span><b>Dizzy Dros</b> — Music</span><span><b>ElGrandeToto</b> — Music</span><span><b>RWINA Auto</b> — Automotive</span><span><b>Karzazi Car</b> — Automotive</span><span><b>House of Laraki</b> — Automotive</span><span><b>Jardin Ben Youssef</b> — Hospitality</span><span><b>NM Signature</b> — Lifestyle</span><span><b>Ecom OS</b> — Platform</span><span><b>Urbex B</b> — Platform</span><span><b>Onyx NFC</b> — Platform</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLIENT WORK ===== -->
+  <section id="clients">
+    <div class="section-head">
+      <h2>Created by V0RTEX</h2>
+      <p>100+ live sites for artists, dealerships, restaurants and brands across Morocco.</p>
+      <span class="idx">03</span>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All (15)</button>
+      <button class="filter-btn" data-filter="music">Music & Creative (5)</button>
+      <button class="filter-btn" data-filter="auto">Automotive (4)</button>
+      <button class="filter-btn" data-filter="lifestyle">Lifestyle (3)</button>
+      <button class="filter-btn" data-filter="platform">Platforms (3)</button>
+    </div>
+
+    <div class="grid">
+
+      <a class="proj" data-cat="music" href="https://elgrandetoto-five.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">MUSIC</span><span class="num">01</span></div>
+        <div><h3>ElGrandeToto</h3><p>Official portfolio for one of Morocco's biggest rap exports — career milestones, discography, and world‑tour info.</p></div>
+        <span class="visit">elgrandetoto-five.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="music" href="https://dizzydros-orcin.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">MUSIC</span><span class="num">02</span></div>
+        <div><h3>Dizzy Dros</h3><p>Portfolio for the Casablanca rap veteran — his story, discography, and major brand partnerships.</p></div>
+        <span class="visit">dizzydros-orcin.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="music" href="https://7ari.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">MUSIC</span><span class="num">03</span></div>
+        <div><h3>7ari</h3><p>Official site for the New School rap artist — bio, full discography timeline, and international collaborations.</p></div>
+        <span class="visit">7ari.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="music" href="https://niigu-official.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">CREATIVE</span><span class="num">04</span></div>
+        <div><h3>Niigu Productions</h3><p>Portfolio for a Moroccan music‑video director — showcase reel, services, and artist collaborations.</p></div>
+        <span class="visit">niigu-official.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="platform" href="https://zakii-tredarr.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">BRAND</span><span class="num">05</span></div>
+        <div><h3>Zaki Trader</h3><p>Noir‑terminal branded site for a trading persona — dark, minimal, built to a distinct visual identity.</p></div>
+        <span class="visit">zakii-tredarr.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="auto" href="https://rwina333-auto.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">AUTOMOTIVE</span><span class="num">06</span></div>
+        <div><h3>RWINA Auto</h3><p>Global automobile export brand shipping direct from Guangzhou — sourcing, pricing, and worldwide delivery.</p></div>
+        <span class="visit">rwina333-auto.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="auto" href="https://souikech-rent-carr.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">AUTOMOTIVE</span><span class="num">07</span></div>
+        <div><h3>Drive in Marrakech</h3><p>Premium car rental with free delivery to the airport, riad, or hotel — inspected, certified fleet.</p></div>
+        <span class="visit">souikech-rent-carr.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="auto" href="https://karzazii-car.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">AUTOMOTIVE</span><span class="num">08</span></div>
+        <div><h3>Karzazi Car</h3><p>Premium fleet — Audi, Porsche, Mercedes — for weddings and VIP events in Meknès.</p></div>
+        <span class="visit">karzazii-car.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="auto" href="https://house-of-laraki.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">AUTOMOTIVE</span><span class="num">09</span></div>
+        <div><h3>House of Laraki</h3><p>24/7 car rental in central Casablanca, from economy hatchbacks to comfort SUVs.</p></div>
+        <span class="visit">house-of-laraki.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="lifestyle" href="https://jardinbenyoussef.com/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">HOSPITALITY</span><span class="num">10</span></div>
+        <div><h3>Jardin Ben Youssef</h3><p>Café‑restaurant in the Marrakech medina — shaded courtyard, menu, and gallery for a hidden‑garden dining spot.</p></div>
+        <span class="visit">jardinbenyoussef.com ↗</span>
+      </a>
+
+      <a class="proj" data-cat="lifestyle" href="https://nm-signature-lookbook.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">LIFESTYLE</span><span class="num">11</span></div>
+        <div><h3>NM Signature</h3><p>Luxury caftan rental house in Marrakech — an exclusive lookbook and fitting‑reservation flow.</p></div>
+        <span class="visit">nm-signature-lookbook.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="lifestyle" href="https://jewelerydelux.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">E‑COMMERCE</span><span class="num">12</span></div>
+        <div><h3>DeLuxe Jewellery</h3><p>Storefront for waterproof, gold‑plated stainless‑steel jewellery, with delivery across Morocco.</p></div>
+        <span class="visit">jewelerydelux.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="platform" href="https://www.ecomos.ma" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">PLATFORM</span><span class="num">13</span></div>
+        <div><h3>Ecom OS</h3><p>All‑in‑one operating system for COD e‑commerce teams — orders, shipping, inventory, finance, and WhatsApp automation.</p></div>
+        <span class="visit">ecomos.ma ↗</span>
+      </a>
+
+      <a class="proj" data-cat="platform" href="https://urbex-b-construction-clarity.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">PLATFORM</span><span class="num">14</span></div>
+        <div><h3>Urbex B</h3><p>Construction‑management platform for Morocco's BTP sector — real‑time site tracking, matching, and admin.</p></div>
+        <span class="visit">urbex-b-construction-clarity.vercel.app ↗</span>
+      </a>
+
+      <a class="proj" data-cat="platform" href="https://onyx-vy3v.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="cat-tag">PRODUCT</span><span class="num">15</span></div>
+        <div><h3>Onyx NFC</h3><p>V0RTEX's own product — a premium NFC business card for instantly sharing a full digital identity.</p></div>
+        <span class="visit">onyx-vy3v.vercel.app ↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <span class="idx">04</span>
+    </div>
+    <div class="contact-grid">
+      <a class="cbox" href="mailto:ziadennachat5@gmail.com">
+        <div><div class="cbox-label">EMAIL</div><div class="cbox-value">ziadennachat5@gmail.com</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="cbox" href="https://instagram.com/V0rtxx_" target="_blank" rel="noopener">
+        <div><div class="cbox-label">INSTAGRAM</div><div class="cbox-value">@V0rtxx_</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="cbox" href="https://wa.me/212675725365" target="_blank" rel="noopener">
+        <div><div class="cbox-label">WHATSAPP</div><div class="cbox-value">+212 675 725 365</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="cbox" href="mailto:onyxnfc.ma@gmail.com">
+        <div><div class="cbox-label">ONYX / BUSINESS</div><div class="cbox-value">onyxnfc.ma@gmail.com</div></div>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Designed & built by Ziad Ennachat — V0RTEX © 2026</span>
+    <span class="status"><span class="fdot"></span>Open to collabs & freelance</span>
+  </footer>
+
+</main>
+
+<script>
+  document.querySelectorAll('.card, .proj').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  var buttons = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.proj');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.getAttribute('data-filter');
+      cards.forEach(function(c){
+        c.classList.toggle('hidden', f !== 'all' && c.getAttribute('data-cat') !== f);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
